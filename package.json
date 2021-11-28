@@ -1,0 +1,28 @@
+{
+  "name": "node_http",
+  "version": "1.0.0",
+  "description": "node_http",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jazznerd206/node_http.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jazznerd206/node_http/issues"
+  },
+  "homepage": "https://github.com/jazznerd206/node_http#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "dot-env": "^0.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
