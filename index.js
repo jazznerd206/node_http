@@ -5,9 +5,6 @@ const fs = require('fs');
 const handleErrors = require('./errors.js');
 const PORT = process.env.PORT || 8080;
 
-
-
-
 // create server
 const server = http.createServer((req, res) => {
     if (req.method === 'GET') {
@@ -30,14 +27,12 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, {"Content-Type": "text/css"});
         fileStream.pipe(res);
     } else if (req.url.match("\.js$")) {
-        console.log('js file detected');
         const jsFile = 'script.js';
         var fileStream = fs.createReadStream(jsFile, "UTF-8");
         res.writeHead(200, {"Content-Type": "text/javascript"});
         fileStream.pipe(res);
     }
 });
-
 // get switch
 const getHandler = (req, res) => {
     const { pathname } = url.parse(req.url)
@@ -52,12 +47,16 @@ const getHandler = (req, res) => {
 const postHandler = (req, res) => {
     switch(req.url) {
         case '/post':
-            console.log('payload to server => ', req.body);
-            res.end();
+            let body = '';
+            req.on('data', chunk => {
+                body += chunk.toString();
+            });
+            req.on('end', () => {
+                console.log('post body => ', body);
+                res.end();
+            });
             break;
         default:
-            console.log(`req.url`, req.url);
-            console.log(`req.body`, req.body);
             req.write('message sent / post request');
             data = req.body;
             res.end(data);
@@ -83,8 +82,8 @@ const homeRoute = (req, res) => {
         if (err) throw new Error('file read error', err);
         else {
             res.writeHead(200, {'Content-Type': 'text/html'});
-            res.write(html);
-            res.end();
+            // res.write(html);
+            res.end(html);
         } 
     })
     
